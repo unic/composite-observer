@@ -1,181 +1,140 @@
-# Simple and minimal animation library
+# Composite - Observer
 
-This is a small and minimalistic animation library.
-You can only animate single value properties like opacity, width or height for example.
-If you want to animate properties like margin, you have to use every property separately as margin-top, margin-right etc.
-
-> If you find any issues or bugs with this package, feel free to open an issue on [github](https://github.com/christiansany/simple-animate/issues) and i will try to resolve it as fast as possible. Or simply fix the bugs yourself and open a pull request.
-
+Small and simple observer pattern as a composite for your factories
 
 ## Installation
 
 ```shell
-$ npm install simple-animate --save
+$ npm install @unic/composite-observer
 ```
 
 ## Importing
 
 ```javascript
 // ES6 Module
-import { polyfill, animate, animateAsPromise } from 'simple-animate';
+import observer from '@unic/composite-observer';
 
 // CommomJS
-const SimpleAnimate = require('simple-animate');
+const observer = require('@unic/composite-observer');
+```
+
+## Usage
+
+A composite can be used in a factory function or in fact for alot of almost anything you want an observer pattern on. This composite is a function which returns an object with three entries on it (on, off & trigger). You can assign the returned obejct to anything you want or you can use it jsut as is.
+
+**Important** in further examples and the API will just infer that you've already generated your new object with the observer pattern on it and will not give any more examples on how to do this.
+
+**Examples**
+```js
+// Applying the composite to a new object literal
+const obj = Object.assign({}, observer());
+
+// Equivalent with lodash.merge
+const obj = _.merge({}, observer());
+
+// Just use it as a
+const obj = observer();
 ```
 
 ## API
 
-* [animate(el, props [, duration [, easing] [, callback [, forceCallback] ] ] )](#animate) ⇒ <code>Function</code>
-* [animateAsPromise(el, props [, duration [, easing] ])](#animateAsPromise) ⇒ <code>Promise</code>
-* [polyfill([animatePropName [, animateAsPromisePropName] ])](#polyfill) ⇒ <code>undefined</code>
+* [on(event, callback[, once = false])](#on)
+* TODO: [once(event, callback)](#once)
+* [off(identifier)](#off)
+* [trigger(event[, params...])](#trigger)
 
-<a name="animate"></a>
+<a name="on"></a>
 
-### animate(el, props [, duration [, easing] [, callback [, forceCallback] ] ])
+### on(event, callback[, once = false])
 
-Animate an element to target props.
+Subscribe to an event
 
-**Returns**: <code>Function</code> - Returns a function which cancels the animation if called
+**Returns**: <code>Integer</code> - Returns an identifyer to unsubscribe
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| el | <code>Element</code> |  | The Element to animate |
-| props | <code>Object</code> | | The properties & values you want it to look like |
-| [duration] | <code>Number</code> | <code>400</code> | Duration of the animation in ms
-| [easing] | <code>String</code> | <code>linear</code> | Easing to be used
-| [callback] | <code>function</code> |  | Callback function to execute when the animation finished |
-| [forceCallback] | <code>boolean</code> | <code>false</code> | If true will force the callback to be executed even if the animation got canceled |
+| event | <code>String</code> |  | Eventname to subscribe to |
+| callback | <code>function</code> |  | Callback function to execute when the event is triggered |
+| [once] | <code>boolean</code> | <code>false</code> | When true, will unsubscribe automatically after first execution |
 
 **Example**
 ```js
-// ES6 Module
-import { animate } from 'simple-animate';
-
-// CommonJS
-const animate = require('simple-animate').animate;
-
-const div = document.querySelector('div');
-
-// Animate div to target props without a callback
-animate(div, { width: '200px', height: '100px' }, 500, 'easeInOutCubic');
-
-
-// Animate div to target props with a callback
-animate(div, { width: '300px', height: '200px' }, 500, 'easeInOutCubic', function () {
-    console.log('Animation finished, YAY!');
+// Subscribe to the 'eventName' event
+obj.on('eventName', () => {
+  console.log('eventName was called');
 });
 
-// Animate div to target props with a callback, but animation gets canceled and callback will not be reached
-const cancelAnimation = animate(div, { width: '200px', height: '100px' }, 500, 'easeInOutCubic', function () {
-    console.log('This will not be logged');
-});
-
-// Cancel animation after 200ms
-setTimeout(cancelAnimation, 200);
-
-// Animate div to target props with a callback, animation will be canceled but callback will be executed anyway
-const cancelAnimation = animate(div, { width: '200px', height: '100px' }, 500, 'easeInOutCubic', function () {
-    console.log('Forced callback execution');
+// Subscribe to the 'eventName' event btu unsubscribe automatically after first call
+obj.on('eventName', () => {
+  console.log('eventName was called');
+  console.log('This handler unsubscribes automatically');
 }, true);
-
-// Cancel animation after 200ms
-setTimeout(cancelAnimation, 200);
 ```
 
-<a name="animateAsPromise"></a>
+<a name="once(event, callback)"></a>
 
-### animateAsPromise(el, props [, duration [, easing] ])
+### once(identifier)
 
-This is the same as animate, but returns a Promise. This looks nicer, but can't be canceled.
+Unfortunately, this feature is not implemented yet, but will shortly.
 
-**Returns**: <code>Promise</code> - Returns a Promise which resolves when the animation ends.
+<a name="off"></a>
+
+### off(identifier)
+
+Unsubscribe a single handler by the identifier returned by .on() or unsubscribe a whole event group by providing an eventname you want to unsubscribe all listeners from
+
+**Returns**: <code>String/Number</code> - For now... lets jsut say the return doesn't matter
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| el | <code>Element</code> |  | The Element to animate |
-| props | <code>Object</code> | | The properties & values you want it to look like |
-| [duration] | <code>Number</code> | <code>400</code> | Duration of the animation in ms
-| [easing] | <code>String</code> | <code>linear</code> | Easing to be used
+| identifier | <code>String/Number</code> |  | Either the eventname or the identifiers returned by .on() |
 
 
 **Example**
 ```js
-// ES6 Module
-import { animateAsPromise } from 'simple-animate';
+// Subscribe to the 'eventName' event
+const uid = obj.on('eventName', () => {
+  console.log('eventName was called');
+});
 
-// CommonJS
-const animateAsPromise = require('simple-animate').animateAsPromise;
+// Unsubscribe by uid
+obj.off(uid);
 
-const div = document.querySelector('div');
-
-// Animate div to target props without a callback
-animateAsPromise(div, { width: '200px', height: '100px' }, 500, 'easeInOutCubic');
-
-// Animate div to target props with a callback
-animateAsPromise(div, { width: '300px', height: '200px' }, 500, 'easeInOutCubic')
-    .then(function () {
-        console.log('Animation finished, YAY!');
-    });
-
-// Animate div to target props with default duration & easing
-animateAsPromise(div, { width: '300px', height: '200px' })
-    .then(function () {
-        console.log('Animation finished, YAY!');
-    });
+// Unsubscribe by eventname, this unsubscribes all listeners for this event
+obj.off('eventName');
 ```
 
-<a name="polyfill"></a>
+<a name="trigger"></a>
 
-### polyfill([animatePropName [, animateAsPromisePropName] ])
+### trigger(event[, params...])
 
-This function will add animate and animateAsPromise to the Element.prototype.
-The functions animate and animateAsPromise can be used as shown above with one difference. There will be no need to use the el property, since that will be taken care of :)
+Trigger all listeners by eventname
+
+**Returns**: <code>undefined</code>
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| animatePropName | <code>String</code> | customAnimate | Propertyname you want to allocate on the Element.prototype for the animate function |
-| animateAsPromisePropName | <code>String</code> | customAnimateAsPromise | Propertyname you want to allocate on the Element.prototype for the animateAsPromise function  |
+| event | <code>String</code> |  | Eventname to trigger |
+| [params...] | <code>Any</code> |  | Pass any number of arguments you want to receive in the listener |
+
 
 **Example**
-```javascript
-// ES6 Module
-import { polyfill } from 'simple-animate';
+```js
+// Subscribe to the 'eventName' event
+obj.on('eventName', () => {
+  console.log('eventName was called');
+});
 
-// CommonJS
-const polyfill = require('simple-animate').polyfill;
+// Trigger the event 'eventName'
+obj.trigger('eventName');
 
-// This adds customAnimate and customAnimateAsPromise to Element.prototype
-polyfill();
+// Subscribe and output all the params you get in the callback
+obj.on('eventName', (param1, param2, ...rest) => {
+  console.log(param1, param2, rest);
+});
 
-// Fetching Element from DOM
-const div = document.querySelector('div');
-
-// Normal animation
-div.customAnimate({ width: '200px', height: '100px' }, 500, 'easeInOutCubic');
-
-// Animation which returns a promise
-div.customAnimateAsPromise({ width: '300px', height: '200px' }, 500, 'easeInOutCubic')
-    .then(function () {
-        console.log('Animation finished, YAY!');
-    });
+// Trigger the event 'eventName' adn add custom parameters for this trigger
+obj.trigger('eventName', 'Hello', 'World', '!!!');
 ```
-
-## Easings
-
-All credit for the easing function goes to  [gre](https://gist.github.com/gre/1650294)  
-Available easings:
-* linear
-* easeInQuad
-* easeOutQuad
-* easeInOutQuad
-* easeInCubic
-* easeOutCubic
-* easeInOutCubic
-* easeInQuart
-* easeOutQuart
-* easeInOutQuart
-* easeInQuint
-* easeOutQuint
-* easeInOutQuint
 
 MIT © [Christian Sany](https://github.com/christiansany)

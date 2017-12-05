@@ -97,7 +97,7 @@ export default () => {
     // Create copy, in case the queue gets mutated inside a callback
     const eventQueue = events[event].queue.slice(0);
 
-    // Cycle through topics queue, fire!
+    // Carefull... #triggerwarning ;)
     eventQueue.forEach((item) => {
       item.listener(...data);
       if (item.once) {
