@@ -1,0 +1,57 @@
+{
+	"name": "@unic/composite-observer",
+	"version": "0.0.0",
+	"description": "Simple observer composite to use for your factories",
+	"scripts": {
+		"start": "npm run dev",
+		"dev": "ava --watch",
+    "lint": "eslint src/",
+    "precommit": "npm run lint && npm test && webpack",
+		"prepublish": "npm run lint && webpack",
+		"test": "ava"
+	},
+	"main": "dist/index.js",
+	"module": "./src/index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/unic/composite-observer.git"
+	},
+	"keywords": [
+		"composite",
+		"observer"
+	],
+	"author": "",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/unic/composite-observer/issues"
+	},
+	"homepage": "https://github.com/unic/composite-observer#readme",
+	"devDependencies": {
+		"ava": "0.21.0",
+		"babel-cli": "6.24.1",
+		"babel-loader": "7.1.2",
+		"babel-plugin-external-helpers": "6.22.0",
+		"babel-preset-es2015": "6.24.1",
+		"eslint": "4.3.0",
+		"eslint-config-airbnb-base": "11.3.1",
+		"eslint-plugin-import": "2.7.0",
+		"husky": "0.14.3",
+		"webpack": "3.10.0"
+	},
+	"ava": {
+		"files": [
+			"src/**/*.spec.js"
+		],
+		"source": [
+			"src/**/*.js"
+		],
+		"concurrency": 5,
+		"failFast": true,
+		"powerAssert": true,
+		"require": [
+			"babel-register"
+		],
+		"babel": "inherit"
+	},
+	"dependencies": {}
+}
