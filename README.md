@@ -39,7 +39,6 @@ const obj = observer();
 ## API
 
 * [on(event, callback[, once = false])](#on)
-* TODO: [once(event, callback)](#once)
 * [off(identifier)](#off)
 * [trigger(event[, params...])](#trigger)
 
@@ -70,12 +69,6 @@ obj.on('eventName', () => {
   console.log('This handler unsubscribes automatically');
 }, true);
 ```
-
-<a name="once(event, callback)"></a>
-
-### once(identifier)
-
-Unfortunately, this feature is not implemented yet, but will shortly.
 
 <a name="off"></a>
 
@@ -133,7 +126,7 @@ obj.on('eventName', (param1, param2, ...rest) => {
   console.log(param1, param2, rest);
 });
 
-// Trigger the event 'eventName' adn add custom parameters for this trigger
+// Trigger the event 'eventName' and add custom parameters for this trigger
 obj.trigger('eventName', 'Hello', 'World', '!!!');
 ```
 
