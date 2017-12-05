@@ -7,7 +7,6 @@
 		"dev": "ava --watch",
 		"lint": "eslint src/",
 		"precommit": "npm run lint && npm test && webpack && git add ./dist/index.js",
-		"prepublish": "npm run lint && webpack",
 		"test": "ava"
 	},
 	"main": "dist/index.js",
