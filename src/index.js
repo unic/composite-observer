@@ -55,7 +55,7 @@ export default () => {
    * @returns {String|Number} Returns the removed id or event name. -1 will be
    * returned if nothing was removed.
    */
-  const off = (event) => {
+  const off = event => {
     if (typeof event === 'number') {
       Object.entries(events).forEach(([key, val]) => {
         for (let i = 0; i < val.queue.length; i += 1) {
@@ -92,13 +92,11 @@ export default () => {
       return;
     }
 
-    // const data = [...arguments].slice(1);
-
     // Create copy, in case the queue gets mutated inside a callback
     const eventQueue = events[event].queue.slice(0);
 
     // Carefull... #triggerwarning ;)
-    eventQueue.forEach((item) => {
+    eventQueue.forEach(item => {
       item.listener(...data);
       if (item.once) {
         off(item.uid);
@@ -112,4 +110,3 @@ export default () => {
     trigger,
   };
 };
-
