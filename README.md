@@ -20,9 +20,13 @@ const observer = require('@unic/composite-observer');
 
 ## Usage
 
-A composite can be used in a factory function or in fact for alot of almost anything you want an observer pattern on. This composite is a function which returns an object with three entries on it (on, off & trigger). You can assign the returned obejct to anything you want or you can use it jsut as is.
+A composite is a function or an object which can be used as is or to merged with another object. These composites are normally used in the factory/composition pattern.
 
-**Important** in further examples and the API will just infer that you've already generated your new object with the observer pattern on it and will not give any more examples on how to do this.
+Helpful Ressources:
+* https://www.youtube.com/watch?v=ImwrezYhw4w
+* https://www.youtube.com/watch?v=wfMtDGfHWpA
+
+**Important**: In further examples and the API will just infer that you've already generated your new object with the composite applied on it and will not give any more examples on how to do that.
 
 **Examples**
 ```js
