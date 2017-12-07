@@ -15,8 +15,7 @@ $ npm install @unic/composite-observer
 import observer from '@unic/composite-observer';
 
 // CommomJS
-// Note: This doesn't work yet, please use ES6 Module import
-const observer = require('@unic/composite-observer');
+const observer = require('@unic/composite-observer').default;
 ```
 
 ## Usage
