@@ -4,8 +4,10 @@ const path = require('path');
 const config = {
   entry: './src/index.js',
   output: {
+    library: 'observer',
+    libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: 'observer.js',
   },
   module: {
     rules: [
