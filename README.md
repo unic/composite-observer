@@ -82,9 +82,9 @@ Unsubscribe a single handler by the identifier returned by .on() or unsubscribe 
 
 **Returns**: <code>String/Number</code> - For now... lets jsut say the return doesn't matter
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| identifier | <code>String/Number</code> |  | Either the eventname or the identifiers returned by .on() |
+| Param | Type | Description |
+| --- | ---  | --- |
+| identifier | <code>String/Number</code> | Either the eventname or the identifiers returned by .on() |
 
 
 **Example**
@@ -109,10 +109,10 @@ Trigger all listeners by eventname
 
 **Returns**: <code>undefined</code>
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| event | <code>String</code> |  | Eventname to trigger |
-| [params...] | <code>Any</code> |  | Pass any number of arguments you want to receive in the listener |
+| Param | Type | Description |
+| --- | --- | --- |
+| event | <code>String</code> | Eventname to trigger |
+| [params...] | <code>Any</code> | Pass any number of arguments you want to receive in the listener |
 
 
 **Example**
