@@ -14,7 +14,6 @@
     "test": "ava"
   },
   "main": "dist/observer.js",
-  "module": "./src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unic/composite-observer.git"

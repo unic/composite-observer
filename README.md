@@ -67,7 +67,7 @@ obj.on('eventName', () => {
   console.log('eventName was called');
 });
 
-// Subscribe to the 'eventName' event btu unsubscribe automatically after first call
+// Subscribe to the 'eventName' event but unsubscribe automatically after first call
 obj.on('eventName', () => {
   console.log('eventName was called');
   console.log('This handler unsubscribes automatically');
